@@ -13,7 +13,6 @@ export class Minimap
 
         this.mapSize = 600
         this.previousUrl = null
-        this.lastUpdate = 0
 
         this.setTexture()
 
@@ -36,12 +35,6 @@ export class Minimap
 
     update()
     {
-        // About 12 updates per second is plenty for a corner map
-        const now = performance.now()
-        if(now - this.lastUpdate < 80)
-            return
-        this.lastUpdate = now
-
         // Nothing to do while hidden
         if(this.element.offsetParent === null)
             return

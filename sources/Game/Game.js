@@ -197,6 +197,7 @@ export class Game
         this.tornado = new Tornado()
         this.map = new Map()
         this.minimap = new Minimap()
+        this.ticker.events.on('tick', () => this.viewport.adapt(this.ticker.deltaAverage, this.ticker.delta), 16)
         this.tutorial = new Tutorial()
         this.title = new Title()
         // this.monitoring = new Monitoring()
