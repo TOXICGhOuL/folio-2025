@@ -33,7 +33,7 @@ export class Viewport
     {
         this.slowSeconds = deltaAverage > 1 / 40 ? this.slowSeconds + delta : 0
 
-        if(this.slowSeconds > 1 && this.scale > 0.6)
+        if(this.slowSeconds > 0.7 && this.scale > 0.6)
         {
             this.slowSeconds = 0
             this.scale = Math.max(0.6, this.scale - 0.1)

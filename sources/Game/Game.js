@@ -50,7 +50,7 @@ import gsap from 'gsap'
 import { Map } from './Map.js'
 import { Minimap } from './Minimap.js'
 import { Tutorial } from './Tutorial.js'
-import { SkillHunt } from './SkillHunt.js'
+import { SkillOrbs } from './SkillOrbs.js'
 
 export class Game
 {
@@ -199,8 +199,8 @@ export class Game
         this.map = new Map()
         this.minimap = new Minimap()
         this.ticker.events.on('tick', () => this.viewport.adapt(this.ticker.deltaAverage, this.ticker.delta), 16)
+        this.skillOrbs = new SkillOrbs()
         this.tutorial = new Tutorial()
-        this.skillHunt = new SkillHunt()
         this.title = new Title()
         // this.monitoring = new Monitoring()
         this.world.step(1)

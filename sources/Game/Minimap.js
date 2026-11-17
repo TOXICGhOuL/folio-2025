@@ -35,10 +35,6 @@ export class Minimap
 
     update()
     {
-        // Nothing to do while hidden
-        if(this.element.offsetParent === null)
-            return
-
         this.setTexture()
 
         const size = this.game.terrain.size

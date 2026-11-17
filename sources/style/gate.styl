@@ -214,6 +214,7 @@
     position fixed
     left 12px
     top 12px
+    --minimap-radius 74px
     z-index 8
     width 148px
     height 148px
@@ -231,6 +232,7 @@
     @media (max-width: 700px)
         width 104px
         height 104px
+        --minimap-radius 52px
         left 8px
         top 8px
 
@@ -278,3 +280,47 @@
     @media (max-width: 700px)
         left 8px
         top 120px
+
+.minimap-arrow
+    position absolute
+    left 50%
+    top 50%
+    width 0
+    height 0
+    margin-left -8px
+    margin-top -10px
+    border-left 8px solid transparent
+    border-right 8px solid transparent
+    border-bottom 20px solid #c8f05a
+    filter drop-shadow(0 0 3px #11110f)
+    display none
+
+.minimap-dot
+    position absolute
+    width 10px
+    height 10px
+    margin -5px 0 0 -5px
+    border-radius 50%
+    background #c8f05a
+    border 2px solid #11110f
+
+.skill-hud
+    position fixed
+    left 12px
+    top 168px
+    z-index 8
+    padding 4px 10px
+    font 900 13px 'Nunito', system-ui, sans-serif
+    color #11110f
+    background #c8f05a
+    border-radius 12px
+    pointer-events none
+    display none
+
+    @media (max-width: 700px)
+        left 8px
+        top 120px
+        font-size 12px
+
+    html.is-started.is-gate-done:not(.input-filter-intro):not(.input-filter-menu):not(.input-filter-modal) &
+        display block
