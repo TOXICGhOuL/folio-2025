@@ -24,7 +24,7 @@ export class Viewport
         this.ratio = this.width / this.height
 
         this.pixelRatioPure = window.devicePixelRatio
-        this.pixelRatioMax = this.isMobile ? 0.9 : 1.25
+        this.pixelRatioMax = this.isMobile ? 1.5 : 1.25
         this.pixelRatio = Math.min(this.pixelRatioPure, this.pixelRatioMax) * this.scale
     }
 
@@ -33,10 +33,10 @@ export class Viewport
     {
         this.slowSeconds = deltaAverage > 1 / 40 ? this.slowSeconds + delta : 0
 
-        if(this.slowSeconds > 1 && this.scale > 0.5)
+        if(this.slowSeconds > 1 && this.scale > 0.6)
         {
             this.slowSeconds = 0
-            this.scale = Math.max(0.5, this.scale - 0.15)
+            this.scale = Math.max(0.6, this.scale - 0.1)
             this.measure()
             this.events.trigger('change')
         }
