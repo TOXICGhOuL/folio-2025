@@ -1,0 +1,8 @@
+[build]
+  command = "npm install --force && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  VITE_MUSIC = "1"
+  VITE_WHISPERS_COUNT = "30"
