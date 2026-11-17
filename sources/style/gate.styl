@@ -245,6 +245,7 @@
         background-size 100% 100%
         background-repeat no-repeat
         will-change transform
+        transform-origin 0 0
 
     .minimap-player
         position absolute
@@ -265,7 +266,7 @@
     left 12px
     top 170px
     z-index 8
-    padding 4px 10px
+    padding 5px 12px
     font-family 'Nunito', system-ui, sans-serif
     font-size 13px
     font-weight 900
@@ -297,19 +298,54 @@
 
 .minimap-dot
     position absolute
-    width 10px
-    height 10px
-    margin -5px 0 0 -5px
+    width 8px
+    height 8px
+    margin -4px 0 0 -4px
     border-radius 50%
     background #c8f05a
     border 2px solid #11110f
+    opacity 0.6
+
+    &.is-current
+        width 16px
+        height 16px
+        margin -8px 0 0 -8px
+        opacity 1
+        box-shadow 0 0 0 4px rgba(200, 240, 90, 0.35)
+        animation dot-pulse 1.1s ease-in-out infinite
+
+.minimap-route
+    position absolute
+    left 0
+    top 0
+    width 600px
+    height 600px
+    overflow visible
+
+    .route-all
+        fill none
+        stroke #c8f05a
+        stroke-width 3
+        stroke-dasharray 8 8
+        opacity 0.45
+
+    .route-now
+        stroke #c8f05a
+        stroke-width 6
+        stroke-linecap round
+        filter drop-shadow(0 0 3px #11110f)
+
+@keyframes dot-pulse
+    50%
+        box-shadow 0 0 0 9px rgba(200, 240, 90, 0)
 
 .skill-hud
     position fixed
     left 12px
     top 168px
+    white-space nowrap
     z-index 8
-    padding 4px 10px
+    padding 5px 12px
     font 900 13px 'Nunito', system-ui, sans-serif
     color #11110f
     background #c8f05a

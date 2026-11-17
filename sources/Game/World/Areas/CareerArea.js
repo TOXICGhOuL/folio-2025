@@ -153,6 +153,7 @@ export class CareerArea extends Area
         this.year = {}
         this.year.group = this.references.items.get('year')[0]
         this.year.originZ = this.year.group.position.z
+        this.year.spacing = 1.8 // distance per year, bigger than the original 1
         this.year.size = 17
         this.year.offsetTarget = 0
         this.year.start = 2021
@@ -365,7 +366,7 @@ export class CareerArea extends Area
         const finalPositionZ = this.year.originZ - this.year.offsetTarget
         this.year.group.position.z += (finalPositionZ - this.year.group.position.z) * this.game.ticker.deltaScaled * 10
 
-        const yearCurrent = this.year.start + Math.floor(this.year.offsetTarget)
+        const yearCurrent = this.year.start + Math.floor(this.year.offsetTarget / this.year.spacing)
 
         if(yearCurrent !== this.year.current)
         {

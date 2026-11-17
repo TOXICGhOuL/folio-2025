@@ -42,10 +42,10 @@ export class Minimap
         const y = Math.min(1, Math.max(0, this.game.player.position.z / size + 0.5))
 
         const half = this.element.clientWidth / 2
-        const tx = Math.round(half - x * this.mapSize)
-        const ty = Math.round(half - y * this.mapSize)
+        const theta = this.game.view.spherical.theta
 
-        this.map.style.transform = `translate(${tx}px, ${ty}px)`
-        this.player.style.transform = `rotate(${- this.game.physicalVehicle.yRotation}rad)`
+        // Player stays in the centre, the map turns so the camera's forward direction is always up
+        this.map.style.transform = `translate(${half}px, ${half}px) rotate(${theta}rad) translate(${- x * this.mapSize}px, ${- y * this.mapSize}px)`
+        this.player.style.transform = `rotate(${theta - this.game.physicalVehicle.yRotation}rad)`
     }
 }

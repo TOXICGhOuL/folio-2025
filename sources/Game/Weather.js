@@ -47,8 +47,8 @@ export class Weather
             {
                 const yearValue = this.game.yearCycles.properties.humidity.value
 
-                const frequency = 0.36
-                const amplitude = 0.2
+                const frequency = 1.1
+                const amplitude = 0.4
                 const variation = this.noise(this.game.dayCycles.absoluteProgress * frequency) * amplitude
 
                 return yearValue + variation
@@ -79,7 +79,7 @@ export class Weather
             1,
             () =>
             {
-                const frequency = 0.44
+                const frequency = 1.3
                 const amplitude = 1
                 const variation = this.noise(this.game.dayCycles.absoluteProgress * frequency) * amplitude
                 return variation
@@ -106,7 +106,7 @@ export class Weather
             1,
             () =>
             {
-                return remapClamp(this.humidity.value, 0.65, 1, 0, 1) * remapClamp(this.clouds.value, 0, 1, 0, 1)
+                return remapClamp(this.humidity.value, 0.45, 0.85, 0, 1) * remapClamp(this.clouds.value, 0, 1, 0, 1)
             }
         )
 
