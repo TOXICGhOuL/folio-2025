@@ -465,12 +465,21 @@ export class LabArea extends Area
                 resource = {}
                 resource.loaded = false
 
-                const loader = this.game.resourcesLoader.getLoader('textureKtx')
+                const isKtx = key.endsWith('.ktx')
+                const loader = this.game.resourcesLoader.getLoader(isKtx ? 'textureKtx' : 'texture')
 
                 loader.load(
                     path,
                     (loadedTexture) =>
                     {
+                        if(!isKtx)
+                        {
+                            loadedTexture.flipY = false
+                            loadedTexture.colorSpace = THREE.SRGBColorSpace
+                            loadedTexture.minFilter = THREE.LinearFilter
+                            loadedTexture.magFilter = THREE.LinearFilter
+                            loadedTexture.generateMipmaps = false
+                        }
                         resource.texture = loadedTexture
                         resource.colorSpace = THREE.SRGBColorSpace
                         resource.flipY = false
@@ -838,7 +847,7 @@ export class LabArea extends Area
                         if(mini.startedLoading)
                             return
 
-                        const loader = this.game.resourcesLoader.getLoader('textureKtx')
+                        const loader = this.game.resourcesLoader.getLoader(project.imageMini.endsWith('.ktx') ? 'textureKtx' : 'texture')
 
                         loader.load(
                             `lab/images/${project.imageMini}`,
