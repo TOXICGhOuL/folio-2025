@@ -36,10 +36,8 @@
     <meta name="apple-mobile-web-app-title" content="Manas" />
     <link rel="manifest" href="/favicons/site.webmanifest" />
 
-    <link rel="preload" href="/respawns/respawnsReferences-compressed.glb" as="fetch" crossorigin>
-    <link rel="preload" href="/behindTheScene/stars.ktx" as="fetch" crossorigin>
-    <link rel="preload" href="/intro/sound.ktx" as="fetch" crossorigin>
-    <link rel="preload" href="/palette.ktx" as="fetch" crossorigin>
+
+
     
     <!-- Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-JMSN30BQ5J"></script>
@@ -53,6 +51,52 @@
 </head>
 <body>
     <noscript><p style="padding:2rem;font-family:sans-serif">This portfolio needs JavaScript and WebGL. Open the <a href="https://bms26127.netlify.app/">plain CV version</a> instead.</p></noscript>
+
+
+    <!-- Start gate: nothing heavy loads until the visitor picks -->
+    <div class="js-gate gate">
+        <div class="gate-inner">
+            <div class="gate-tag"><span class="gate-dot"></span>MANAS BAJAJ</div>
+            <h1 class="gate-title">How do you want<br>to see my work?</h1>
+            <div class="gate-options">
+                <a class="gate-card" href="https://bms26127.netlify.app/" rel="noopener">
+                    <span class="gate-card-title">Plain CV</span>
+                    <span class="gate-card-text">One page. Loads instantly. Best on slow data.</span>
+                    <span class="gate-card-meta">~ 0.2 MB</span>
+                </a>
+                <button class="js-gate-start gate-card gate-card-primary" type="button">
+                    <span class="gate-card-title">Drive through it</span>
+                    <span class="gate-card-text">A 3D world you explore in a little car.</span>
+                    <span class="gate-card-meta js-gate-size">about 15 MB, best on a laptop</span>
+                </button>
+            </div>
+            <a class="gate-pdf" href="/Manas_Bajaj_CV.pdf" download>Download CV (PDF)</a>
+            <div class="js-gate-progress gate-progress"><div class="js-gate-bar gate-bar"></div></div>
+        </div>
+    </div>
+
+    <!-- Tutorial -->
+    <div class="js-tutorial tutorial" hidden>
+        <div class="tutorial-card">
+            <h2>How this works</h2>
+            <ul class="tutorial-list">
+                <li><b>Drive</b><span class="t-desk">W A S D or arrow keys</span><span class="t-touch">touch and drag on the screen</span></li>
+                <li><b>Boost</b><span class="t-desk">hold Shift</span></li>
+                <li><b>Brake</b><span class="t-desk">B or Ctrl</span></li>
+                <li><b>Interact</b><span class="t-desk">E or Enter near a glowing marker</span><span class="t-touch">tap the Interact button</span></li>
+                <li><b>Stuck or flipped</b><span class="t-desk">press R</span><span class="t-touch">tap Unstuck</span></li>
+                <li><b>Map</b><span class="t-desk">press M, or use the small map</span><span class="t-touch">tap the map button</span></li>
+            </ul>
+            <p class="tutorial-hint">Follow the signs. Projects, career, achievements and contact links are all in the world. Quality is set to Low for smooth play; change it in the menu.</p>
+            <button class="js-tutorial-close tutorial-button" type="button">Got it, let me drive</button>
+        </div>
+    </div>
+
+    <!-- Minimap -->
+    <div class="js-minimap minimap" aria-hidden="true">
+        <div class="js-minimap-map minimap-map"></div>
+        <div class="js-minimap-player minimap-player"></div>
+    </div>
 
     <div class="js-fonts-loader fonts-loader">
         <div class="font nunito" data-font="400 20px Nunito"> </div>
@@ -691,17 +735,6 @@
                                 <p class="text">
                                     <a href="https://threejs.org" target="_blank" rel="noreferrer">Three.js</a> is the library I’m using to render this 3D world.
                                     <br />It was created by <strong>mr.doob</strong> (<a href="https://x.com/mrdoob" target="_blank" rel="noreferrer">X</a>, <a href="http://github.com/mrdoob" target="_blank" rel="noreferrer">GitHub</a>), followed by hundreds of awesome developers, one of which being Sunag (<a href="https://x.com/sea3dformat" target="_blank" rel="noreferrer">X</a>, <a href="https://github.com/sunag" target="_blank" rel="noreferrer">GitHub</a>) who added <a href="https://github.com/mrdoob/three.js/wiki/Three.js-Shading-Language" target="_blank" rel="noreferrer">TSL</a>, enabling the use of both WebGL and WebGPU, making this portfolio possible.
-                                </p>
-                                
-                                <h2 class="title">Three.js Journey</h2>
-                                <p class="text">
-                                    If you want to learn Three.js, I got you covered with this <a href="https://threejs-journey.com" target="_blank" rel="noreferrer">huge course</a>.
-                                    <br />It contains everything you need to start building awesome stuff with Three.js (and much more).
-                                </p>
-                                
-                                <h2 class="title">Devlogs</h2>
-                                <p class="text">
-                                    I’ve been making devlogs since the very start of this portfolio and you can find them all on my <a href="https://www.youtube.com/playlist?list=PL5nApUt6Z8sTZxEsEMd8x89OCKCAAfNL0" target="_blank" rel="noreferrer">Youtube channel</a>.
                                 </p>
                                 
                                 <h2 class="title">Source code</h2>

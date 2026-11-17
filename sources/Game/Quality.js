@@ -9,8 +9,8 @@ export class Quality
 
         this.events = new Events()
 
-        const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
-        this.level = isMobile ? 1 : 0 // 0 = highest quality
+        // Always start light (1 = low). Visitors can switch to high in the menu.
+        this.level = 1
 
         // Debug
         if(this.game.debug.active)
