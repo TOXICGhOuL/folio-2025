@@ -221,7 +221,17 @@ export class Physics
                     physical.onCollision = _physicalDescription.onCollision
             }
 
-            const collider = this.world.createCollider(colliderDescription, physical.body)
+            let collider = null
+            try
+            {
+                collider = this.world.createCollider(colliderDescription, physical.body)
+            }
+            catch(error)
+            {
+                // A single bad collider must not stop the whole world from loading
+                console.warn('Collider skipped', JSON.stringify({ shape: _colliderDescription.shape, verts: _colliderDescription.parameters?.[0]?.length, idx: _colliderDescription.parameters?.[1]?.length, type: _colliderDescription.parameters?.[0]?.constructor?.name, itype: _colliderDescription.parameters?.[1]?.constructor?.name, first: Array.from(_colliderDescription.parameters?.[0] || []).slice(0, 6) }), error)
+                continue
+            }
             physical.colliders.push(collider)
         }
 
