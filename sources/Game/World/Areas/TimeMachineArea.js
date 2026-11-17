@@ -24,7 +24,7 @@ export class TimeMachineArea extends Area
             InteractivePoints.STATE_CONCEALED,
             () =>
             {
-                window.open('https://bms26127.netlify.app/')
+                window.open('/Manas_Bajaj_CV.pdf', '_blank')
             },
             () =>
             {

@@ -1,7 +1,7 @@
 export default [
     {
         title: 'Plain CV',
-        url: 'https://bms26127.netlify.app',
+        url: '/Manas_Bajaj_CV.pdf',
         image: 'plain-cv.png',
         imageMini: 'plain-cv-mini.png'
     },
