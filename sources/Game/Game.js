@@ -97,7 +97,7 @@ export class Game
         await this.rendering.setRenderer()
 
         const compressed = !!import.meta.env.VITE_COMPRESSED
-        const compressedModelSuffix = compressed ? '-compressed' : ''
+        const compressedModelSuffix = '' // models stay uncompressed: the compressed GLBs crash the Rapier trimesh colliders
         const compressedTextureFormat = compressed ? 'textureKtx' : 'texture'
         const compressedTextureExtension = compressed ? 'ktx' : 'png'
 
