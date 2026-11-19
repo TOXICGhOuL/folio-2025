@@ -5,7 +5,6 @@ const text = `
 ║ Interactive portfolio of Manas Bajaj, BMS (Hons), IIM Sirmaur.
 ║ Mail     ⇒ manasbajaj07@gmail.com
 ║ LinkedIn ⇒ https://www.linkedin.com/in/manasrbajaj/
-║ GitHub   ⇒ https://github.com/TOXICGhOuL
 ╚═══════════════════════╝
 
 ╔═ Credits ═════════════╗

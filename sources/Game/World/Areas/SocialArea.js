@@ -38,7 +38,7 @@ export class SocialArea extends Area
 
         for(const link of socialData)
         {
-            const angle = i * Math.PI / (socialData.length - 1)
+            const angle = (link.slot ?? i) * Math.PI / 7
             const position = this.center.clone()
             position.x += Math.cos(angle) * radius
             position.y = 1

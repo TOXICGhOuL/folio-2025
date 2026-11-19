@@ -13,7 +13,7 @@ export default
         'areas',
         'Explorer',
         'Visit every area.',
-        9,
+        8,
         true // Unique
     ],
     [

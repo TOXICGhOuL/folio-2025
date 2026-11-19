@@ -29,7 +29,6 @@ export class Areas
             [ 'landing', LandingArea ],
             [ 'projects', ProjectsArea ],
             [ 'social', SocialArea ],
-            [ 'timeMachine', TimeMachineArea ],
         ]
 
         const model = [...this.game.resources.areasModel.scene.children]

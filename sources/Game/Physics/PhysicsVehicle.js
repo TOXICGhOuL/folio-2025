@@ -11,11 +11,11 @@ export class PhysicsVehicle
 
         this.events = new Events()
 
-        this.steeringAmplitude = 0.5
-        this.engineForceAmplitude = 300
-        this.boostMultiplier = 1.5
-        this.topSpeed = 6.5
-        this.topSpeedBoost = 16
+        this.steeringAmplitude = 0.42
+        this.engineForceAmplitude = 240
+        this.boostMultiplier = 1.3
+        this.topSpeed = 5
+        this.topSpeedBoost = 9
         this.brakeAmplitude = 35
         this.idleBrake = 0.06
         this.reverseBrake = 0.4
@@ -486,7 +486,7 @@ export class PhysicsVehicle
         // Smooth the input, and steer less the faster the car goes
         this.steerInput = (this.steerInput || 0)
         this.steerInput += (this.game.player.steering - this.steerInput) * Math.min(1, this.game.ticker.deltaScaled * 7)
-        const steer = this.steerInput * this.steeringAmplitude / (1 + this.speed * 0.1)
+        const steer = this.steerInput * this.steeringAmplitude / (1 + this.speed * 0.14)
 
         // Update wheels
         this.controller.setWheelSteering(0, steer)

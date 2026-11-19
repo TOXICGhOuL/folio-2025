@@ -41,7 +41,7 @@ export class Map
     setLocations()
     {
         this.locations = {}
-        const offsets = { achievements: [0, -0.01], bowling: [-0.08, 0.03], career: [0, -0.06], circuit: [-0.08, -0.05], lab: [-0.03, 0], landing: [0.02, 0], projects: [0, -0.02], social: [-0.01, -0.04], timeMachine: [0, 0] }
+        const offsets = { achievements: [0, -0.01], bowling: [-0.08, 0.03], career: [0, -0.06], circuit: [-0.08, -0.05], lab: [-0.03, 0], landing: [0.02, 0], projects: [0, -0.02], social: [-0.01, -0.04] }
         this.locations.items = places.map(place => ({ name: place.name, respawnName: place.key, offset: { x: (offsets[place.key] || [0, 0])[0], y: (offsets[place.key] || [0, 0])[1] } }))
 
         for(const item of this.locations.items)
