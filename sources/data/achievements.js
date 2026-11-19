@@ -5,234 +5,192 @@ export default
 [
     [
         'landingLeave',
-        'I’m going on an adventure!',
-        'Get out of the landing area.',
+        'Departure',
+        'Leave the start area.',
         1
     ],
     [
         'areas',
-        'Traveler',
-        'Vist every area.',
-        13,
+        'Explorer',
+        'Visit every area.',
+        9,
         true // Unique
     ],
     [
         'projects',
-        'But can you fix the wifi?',
-        'Check every project in the <strong>projects</strong> area.',
+        'Case files',
+        'Open every project in the <strong>projects</strong> area.',
         projectsData.length,
         true // Unique
     ],
     [
         'lab',
-        'I\'m a bit of a scientist myself',
-        'Check every project in the <strong>lab</strong> area.',
+        'Reader',
+        'Open every link in the <strong>links</strong> area.',
         labData.length,
         true // Unique
     ],
     [
-        'cookie',
-        'Wake & bake',
-        'Accept <strong>1</strong> cookies.',
-        1
-    ],
-    [
-        'cookie',
-        'Making some dough',
-        'Accept <strong>10</strong> cookies.',
-        10
-    ],
-    [
-        'cookie',
-        'So baked right now',
-        'Accept <strong>100</strong> cookies.',
-        100
-    ],
-    [
-        'cookie',
-        'Cookie Clicker',
-        'Accept <strong>1000</strong> cookies.',
-        1000
-    ],
-    [
         'whisper',
-        'It\'s About Sending A Message',
+        'Message',
         'Post a whisper.',
         1
     ],
     [
         'sea',
-        'Under the sea',
-        'Go make friend with the fishes.',
+        'Deep water',
+        'Drive into the sea.',
         1
     ],
     [
         'upsideDown',
-        'Turtle',
-        'Get upside down.',
+        'Upside down',
+        'Flip the vehicle over.',
         1
     ],
     [
         'frontFlip',
-        'Teeth first',
-        'Do a front flip and land on your 4 wheels.',
+        'Front flip',
+        'Do a front flip and land on four wheels.',
         1
     ],
     [
         'backFlip',
-        'Flip of faith',
-        'Do a back flip and land on your 4 wheels.',
+        'Back flip',
+        'Do a back flip and land on four wheels.',
         1
     ],
     [
         'suspensions',
-        'Lowrider',
-        'Use the vehicle suspensions.',
+        'Suspension',
+        'Use the vehicle suspension.',
         4
     ],
     [
         'honk',
-        'Honk',
-        'Honk me like one of your french driver.',
+        'Horn',
+        'Use the horn 10 times.',
         10
     ],
     [
         'explosiveCrates',
-        'Great Explosion Murder God Dynamight',
+        'Demolition',
         'Blow up every explosive crate.',
         20,
         true // Unique
     ],
     [
         'goHigh',
-        'Limit the sky',
+        'Altitude',
         'Reach <strong>15 meters</strong> high.',
         15
     ],
     [
         'strike',
-        'F*** it, dude. Let\'s go bowling',
-        'Accomplished a strike.',
-        1
-    ],
-    [
-        'toiletDown',
-        'Do not disturb',
-        'Knock down the latrine.',
+        'Strike',
+        'Score a strike.',
         1
     ],
     [
         'circuitFinish',
-        'Participation medal',
+        'Finisher',
         'Finish a race.',
         1
     ],
     [
         'circuitFinishFast',
-        'KA-CHOW!',
+        'Quick lap',
         'Finish a race in less than <strong>30s</strong>.',
         1
     ],
     [
         'circuitLeaderboard',
-        'Early Bird gets the Worm',
+        'Leaderboard',
         'Make it to the leaderboard.',
         1
     ],
     [
         'fullDay',
-        'Don’t you have work to do?',
+        'Full day',
         'Spend a full day cycle here in one go.',
         1
     ],
     [
         'distanceDriven',
-        'Baby step',
+        'First kilometre',
         'Drive 1km.',
         1
     ],
     [
         'distanceDriven',
-        'Are we there yet?',
+        'Ten kilometres',
         'Drive 10km.',
         10
     ],
     [
         'distanceDriven',
-        'Honey, I’m home!',
+        'Hundred kilometres',
         'Drive 100km.',
         100
     ],
     [
-        'sacrifice',
-        'One for the god of Chaos',
-        'Sacrifice yourself into the altar.',
-        1
-    ],
-    [
         'cataclysm',
-        'Witness me!',
-        'Witness a cataclysm',
+        'Cataclysm',
+        'Witness a cataclysm.',
         1
     ],
     [
         'weatherSnow',
-        'Do you want to build a snowman?',
+        'Snow',
         'Witness snowy weather.',
         1
     ],
     [
         'weatherRain',
-        'I’m singing in the rain',
-        'Witness a rainy weather.',
+        'Rain',
+        'Witness rainy weather.',
         1
     ],
     [
         'lightning',
-        '1.21 Gigawatts!',
-        'Get hit by a lightning.',
+        'Lightning',
+        'Get hit by lightning.',
         1
     ],
     [
         'waterfall',
-        'Gamer instinct',
-        'What did you expect? A treasure?',
+        'Hidden spot',
+        'Find the hidden spot.',
         1
     ],
     [
         'fan',
-        'You’re my only fan',
+        'Fan',
         'Spawn a fan.',
         1
     ],
     [
         'reset',
-        'Clean your room',
-        'Put back everything as it was.',
+        'Reset',
+        'Put everything back as it was.',
         1
     ],
     [
         'statueDown',
-        'Revolution!',
-        'Tear that statue down.',
+        'Statue',
+        'Knock the statue down.',
         1
     ],
     [
         'konami',
-        'Up up down down…',
-        'You know the rest.',
+        'Code',
+        'Enter the code.',
         1
     ],
     [
         'debug',
-        'It\'s not a bug, it\'s a feature',
-        'Access the debug UI.',
-        1
-    ],
-    [
-        'hacker',
-        'Hacker',
-        'This one can’t be achieved.',
+        'Debug',
+        'Open the debug interface.',
         1
     ],
 ]

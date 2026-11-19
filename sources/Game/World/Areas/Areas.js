@@ -22,17 +22,13 @@ export class Areas
 
         const list = [
             [ 'achievements', AchievementsArea ],
-            [ 'altar', AltarArea ],
-            [ 'behindTheScene', BehindTheSceneArea ],
             [ 'bowling', BowlingArea ],
             [ 'career', CareerArea ],
             [ 'circuit', CircuitArea ],
-            [ 'cookie', CookieArea ],
             [ 'lab', LabArea ],
             [ 'landing', LandingArea ],
             [ 'projects', ProjectsArea ],
             [ 'social', SocialArea ],
-            [ 'toilet', ToiletArea ],
             [ 'timeMachine', TimeMachineArea ],
         ]
 

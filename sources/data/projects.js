@@ -34,7 +34,7 @@ export default [
     {
         title: 'Kotak Mahindra Research',
         titleSmall: [ 'Kotak', 'Research' ],
-        url: 'https://www.linkedin.com/in/manasrbajaj/',
+        url: 'https://sbgroup07.netlify.app/',
         attributes: { role: 'Group research', with: 'Group project' },
         distinctions: [],
         images: [ 'kotak-1.png', 'kotak-2.png' ]

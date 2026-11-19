@@ -12,10 +12,10 @@ export class PhysicsVehicle
         this.events = new Events()
 
         this.steeringAmplitude = 0.5
-        this.engineForceAmplitude = 380
-        this.boostMultiplier = 2
-        this.topSpeed = 10
-        this.topSpeedBoost = 40
+        this.engineForceAmplitude = 300
+        this.boostMultiplier = 1.5
+        this.topSpeed = 6.5
+        this.topSpeedBoost = 16
         this.brakeAmplitude = 35
         this.idleBrake = 0.06
         this.reverseBrake = 0.4
@@ -142,7 +142,7 @@ export class PhysicsVehicle
             radius: 0.4,
             directionCs: { x: 0, y: -1, z: 0 },
             axleCs: { x: 0, y: 0, z: 1 },
-            frictionSlip: 0.9,
+            frictionSlip: 1,
             maxSuspensionForce: 150,
             maxSuspensionTravel: 2,
             sideFrictionStiffness: 3,
@@ -483,7 +483,10 @@ export class PhysicsVehicle
 
         // Steer
         // Less steering at speed, so the car holds a line instead of spinning out
-        const steer = this.game.player.steering * this.steeringAmplitude / (1 + this.speed * 0.05)
+        // Smooth the input, and steer less the faster the car goes
+        this.steerInput = (this.steerInput || 0)
+        this.steerInput += (this.game.player.steering - this.steerInput) * Math.min(1, this.game.ticker.deltaScaled * 7)
+        const steer = this.steerInput * this.steeringAmplitude / (1 + this.speed * 0.1)
 
         // Update wheels
         this.controller.setWheelSteering(0, steer)

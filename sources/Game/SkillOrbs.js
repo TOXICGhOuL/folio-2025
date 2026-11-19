@@ -2,11 +2,12 @@ import * as THREE from 'three/webgpu'
 import { float, positionLocal } from 'three/tsl'
 import gsap from 'gsap'
 import { Game } from './Game.js'
+import places from '../data/places.js'
 
 // GTA style checkpoint run. Eight checkpoints in open ground, visited in order.
 // The minimap shows the whole route, a bright line to the current checkpoint and an edge arrow.
 const FACTS = [
-    { title: 'Off the clock', text: 'Speed skating for 9+ years (District runner-up), guitar with Trinity College London, and specialty coffee.' },
+    { title: 'Beyond academics', text: 'Speed skating for 9+ years (district runner-up), guitar with Trinity College London, and specialty coffee.' },
     { title: 'Mock Shark Tank, 2024', text: '2nd of 11 teams and Best Presenter in front of 95+ people.' },
     { title: 'Highest revenue team', text: 'EDII Entrepreneurship Simulation: led 10 of ~80 participants and sold the most.' },
     { title: 'USG Logistics, NashCon \'25', text: 'Delegate kits, rooms and shuttles for 200+ people. Found a new supplier when a vendor slipped.' },
@@ -237,7 +238,7 @@ export class SkillOrbs
         this.huntButton.textContent = 'Stop the hunt'
         this.refreshStates()
         this.closePanel()
-        this.game.notifications.show('<strong>Skill hunt started</strong><br>Drive through the 8 checkpoints in order. Follow the lime arrow.', '', 6)
+        this.game.notifications.show('<strong>Skill hunt started</strong><br>Drive through the 8 checkpoints in order. Follow the green arrow on the minimap.', '', 6)
     }
 
     stopHunt()
@@ -291,16 +292,7 @@ export class SkillOrbs
     // Go panel: pick a place, get a lime route to it
     setPanel()
     {
-        const PLACES = [
-            { key: 'projects',     name: 'Projects',     blurb: 'Six case files: NashCon, Shark Tank, EDII, Kotak' },
-            { key: 'career',       name: 'Career',       blurb: 'Walk the timeline from 2021 to 2030' },
-            { key: 'achievements', name: 'Achievements', blurb: 'Percentile, ranks and awards' },
-            { key: 'lab',          name: 'Lab',          blurb: 'My other sites and links' },
-            { key: 'social',       name: 'Contact',      blurb: 'LinkedIn, mail, WhatsApp, GitHub' },
-            { key: 'circuit',      name: 'Circuit',      blurb: 'A timed lap, just for fun' },
-            { key: 'bowling',      name: 'Bowling',      blurb: 'Knock the pins down' },
-            { key: 'timeMachine',  name: 'Time machine', blurb: 'Jump to my other websites' },
-        ]
+        const PLACES = places.filter(place => place.key !== 'landing')
 
         this.places = PLACES.map(place =>
         {
@@ -320,6 +312,7 @@ export class SkillOrbs
 
         this.goButton.addEventListener('click', () => this.panel.hidden ? this.openPanel() : this.closePanel())
         this.panel.querySelector('.js-go-close').addEventListener('click', () => this.closePanel())
+        window.addEventListener('keydown', (event) => { if(event.key === 'Escape' && !this.panel.hidden) { event.stopImmediatePropagation(); this.closePanel() } }, true)
         this.huntButton.addEventListener('click', () => this.hunting ? this.stopHunt() : this.startHunt())
         this.panel.querySelector('.js-go-clear').addEventListener('click', () => { this.waypoint = null; this.waypointMarker.visible = false; this.closePanel() })
         this.updateBest()

@@ -396,7 +396,8 @@
     right 12px
     top 142px
     z-index 8
-    width 52px
+    min-width 52px
+    padding 0 14px
     height 40px
     font 900 15px 'Nunito', system-ui, sans-serif
     color #11110f
@@ -541,3 +542,61 @@
         background transparent
         border 1px solid #34342d
         cursor pointer
+
+// Area banner
+.area-banner
+    position fixed
+    top 14px
+    left 50%
+    z-index 9
+    width calc(100% - 340px)
+    max-width 460px
+    padding 12px 16px
+    transform translate(-50%, -140%)
+    opacity 0
+    pointer-events none
+    transition transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1), opacity 0.4s
+    background rgba(17, 17, 15, 0.92)
+    color #e9e6dc
+    border-left 5px solid #c8f05a
+    font-family 'Nunito', system-ui, sans-serif
+    display none
+
+    html.is-started.is-gate-done:not(.input-filter-intro):not(.input-filter-menu):not(.input-filter-modal) &
+        display block
+
+    &.is-visible
+        transform translate(-50%, 0)
+        opacity 1
+
+    .area-name
+        display block
+        font-size 20px
+        font-weight 900
+        color #c8f05a
+
+    .area-text
+        display block
+        margin-top 2px
+        font-size 13px
+        line-height 1.4
+        opacity 0.85
+
+    @media (max-width: 700px)
+        top auto
+        bottom 96px
+        width calc(100% - 24px)
+        padding 10px 12px
+
+        .area-name
+            font-size 17px
+
+        .area-text
+            font-size 12px
+
+// Map labels are always visible
+.map .location .name
+    transform scale(1, 1) !important
+
+    @media (max-width: 700px)
+        transform scale(0.7, 0.7) !important

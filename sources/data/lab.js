@@ -6,10 +6,10 @@ export default [
         imageMini: 'plain-cv-mini.png'
     },
     {
-        title: 'Field Index',
-        url: 'https://stirring-croissant-efea25.netlify.app',
-        image: 'field-index.png',
-        imageMini: 'field-index-mini.png'
+        title: 'Kotak Mahindra Research',
+        url: 'https://sbgroup07.netlify.app/',
+        image: 'kotak-research.png',
+        imageMini: 'kotak-research-mini.png'
     },
     {
         title: 'LinkedIn',
@@ -18,9 +18,9 @@ export default [
         imageMini: 'linkedin-mini.png'
     },
     {
-        title: 'This Portfolio',
-        url: 'https://github.com/TOXICGhOuL/folio-2025',
-        image: 'this-world.png',
-        imageMini: 'this-world-mini.png'
+        title: 'NashCon',
+        url: 'https://nashcon.in/',
+        image: 'nashcon.png',
+        imageMini: 'nashcon-mini.png'
     },
 ]
