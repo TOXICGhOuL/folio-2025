@@ -31,7 +31,9 @@ export class Viewport
     // Called every frame: if average fps stays under ~40 for a second, render fewer pixels
     adapt(deltaAverage, delta)
     {
-        this.slowSeconds = deltaAverage > 1 / 40 ? this.slowSeconds + delta : 0
+        // Ignore the first seconds (loading spikes) and hidden tabs, then only react to long slow stretches
+        this.age = (this.age || 0) + delta
+        this.slowSeconds = this.age > 10 && document.visibilityState === 'visible' && deltaAverage > 1 / 35 ? this.slowSeconds + delta : 0
 
         if(this.slowSeconds > 0.7 && this.scale > 0.6)
         {

@@ -85,7 +85,7 @@
                 <li><b>Brake</b><span class="t-desk">B or Ctrl</span></li>
                 <li><b>Interact</b><span class="t-desk">E or Enter near a glowing marker</span><span class="t-touch">tap the Interact button</span></li>
                 <li><b>Stuck or flipped</b><span class="t-desk">press R</span><span class="t-touch">tap Unstuck</span></li>
-                <li><b>Skill orbs</b><span>Follow the lime arrow on the minimap and drive into glowing orbs</span></li>
+                <li><b>Go button</b><span>Pick a place or start the skill hunt. Follow the lime route on the minimap</span></li>
                 <li><b>Map</b><span class="t-desk">press M, or use the small map</span><span class="t-touch">tap the map button</span></li>
             </ul>
             <p class="tutorial-hint">Follow the signs. Projects, career, achievements and contact links are all in the world. Quality is set to Low for smooth play; change it in the menu.</p>
@@ -98,8 +98,27 @@
         <div class="js-minimap-map minimap-map"></div>
         <div class="js-minimap-player minimap-player"></div>
         <div class="js-minimap-arrow minimap-arrow"></div>
+        <div class="js-minimap-compass minimap-compass"><span>N</span></div>
     </div>
     <div class="js-skill-hud skill-hud"></div>
+    <!-- Go: places and skill hunt -->
+    <button class="js-go-button go-button" type="button">Go</button>
+    <div class="js-go-panel go-panel" hidden>
+        <div class="go-card">
+            <div class="go-head"><h2>Where to?</h2><button class="js-go-close go-close" type="button" aria-label="Close">×</button></div>
+            <div class="go-hunt">
+                <div>
+                    <strong>Skill hunt</strong>
+                    <span class="js-hunt-best go-hunt-text"></span>
+                </div>
+                <button class="js-hunt-toggle go-hunt-button" type="button">Start the skill hunt</button>
+            </div>
+            <div class="go-label">Places, nearest first</div>
+            <div class="js-go-places go-places"></div>
+            <button class="js-go-clear go-clear" type="button">Clear route</button>
+        </div>
+    </div>
+
 
     <div class="js-fonts-loader fonts-loader">
         <div class="font nunito" data-font="400 20px Nunito"> </div>

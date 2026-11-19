@@ -214,14 +214,14 @@
     position fixed
     left 12px
     top 12px
-    --minimap-radius 74px
+    --minimap-radius 85px
     z-index 8
-    width 148px
-    height 148px
+    width 170px
+    height 170px
     overflow hidden
     border-radius 50%
-    border 3px solid #e9e6dc
-    box-shadow 0 4px 18px rgba(0, 0, 0, 0.45)
+    border 4px solid #e9e6dc
+    box-shadow 0 0 0 3px #11110f, 0 0 0 5px #c8f05a, 0 8px 24px rgba(0, 0, 0, 0.5)
     background #1b1b17
     pointer-events none
     display none
@@ -230,9 +230,9 @@
         display block
 
     @media (max-width: 700px)
-        width 104px
-        height 104px
-        --minimap-radius 52px
+        width 124px
+        height 124px
+        --minimap-radius 62px
         left 8px
         top 8px
 
@@ -247,7 +247,16 @@
         will-change transform
         transform-origin 0 0
 
+    &::after
+        content ''
+        position absolute
+        inset 0
+        border-radius 50%
+        box-shadow inset 0 0 22px 6px rgba(17, 17, 15, 0.55)
+        pointer-events none
+
     .minimap-player
+        z-index 2
         position absolute
         left 50%
         top 50%
@@ -280,7 +289,7 @@
 
     @media (max-width: 700px)
         left 8px
-        top 120px
+        top 146px
 
 .minimap-arrow
     position absolute
@@ -342,7 +351,7 @@
 .skill-hud
     position fixed
     left 12px
-    top 168px
+    top 196px
     white-space nowrap
     z-index 8
     padding 5px 12px
@@ -355,8 +364,180 @@
 
     @media (max-width: 700px)
         left 8px
-        top 120px
+        top 146px
         font-size 12px
 
     html.is-started.is-gate-done:not(.input-filter-intro):not(.input-filter-menu):not(.input-filter-modal) &
         display block
+
+.minimap-compass
+    position absolute
+    inset 0
+    z-index 3
+    pointer-events none
+
+    span
+        position absolute
+        left 50%
+        top 3px
+        margin-left -8px
+        width 16px
+        height 16px
+        line-height 16px
+        text-align center
+        font 900 11px 'Nunito', system-ui, sans-serif
+        color #11110f
+        background #e9e6dc
+        border-radius 50%
+
+// Go button and panel
+.go-button
+    position fixed
+    right 12px
+    top 142px
+    z-index 8
+    width 52px
+    height 40px
+    font 900 15px 'Nunito', system-ui, sans-serif
+    color #11110f
+    background #c8f05a
+    border 0
+    cursor pointer
+    display none
+
+    &:focus-visible
+        outline 3px solid #e9e6dc
+
+    html.is-started.is-gate-done:not(.input-filter-intro):not(.input-filter-menu):not(.input-filter-modal) &
+        display block
+
+.go-panel
+    position fixed
+    inset 0
+    z-index 70
+    display flex
+    align-items flex-end
+    justify-content center
+    padding 12px
+    background rgba(17, 17, 15, 0.55)
+    font-family 'Nunito', system-ui, sans-serif
+
+    &[hidden]
+        display none
+
+    @media (min-width: 700px)
+        align-items center
+
+.go-card
+    width 100%
+    max-width 460px
+    max-height 88vh
+    overflow auto
+    padding 18px
+    background #11110f
+    color #e9e6dc
+    border 1px solid #34342d
+    box-shadow 0 20px 60px rgba(0, 0, 0, 0.5)
+
+    .go-head
+        display flex
+        align-items center
+        justify-content space-between
+
+        h2
+            margin 0
+            font-size 24px
+            font-weight 900
+            color #c8f05a
+
+    .go-close
+        width 36px
+        height 36px
+        font-size 24px
+        color #e9e6dc
+        background transparent
+        border 1px solid #34342d
+        cursor pointer
+
+    .go-hunt
+        display flex
+        align-items center
+        justify-content space-between
+        gap 12px
+        margin 14px 0
+        padding 12px
+        background #1b1b17
+        border 1px solid #c8f05a
+
+        strong
+            display block
+            font-size 16px
+
+        .go-hunt-text
+            font-size 12px
+            opacity 0.7
+
+    .go-hunt-button
+        flex none
+        padding 10px 12px
+        font 900 13px 'Nunito', system-ui, sans-serif
+        color #11110f
+        background #c8f05a
+        border 0
+        cursor pointer
+
+        &[disabled]
+            opacity 0.4
+
+    .go-label
+        margin 6px 0
+        font-size 11px
+        font-weight 900
+        letter-spacing 0.12em
+        text-transform uppercase
+        opacity 0.6
+
+    .go-places
+        display grid
+        gap 8px
+
+    .go-place
+        display grid
+        grid-template-columns 1fr auto
+        gap 2px 10px
+        padding 12px
+        text-align left
+        font inherit
+        color inherit
+        background #1b1b17
+        border 1px solid #2a2a24
+        cursor pointer
+
+        &:hover, &:focus-visible
+            border-color #c8f05a
+            outline none
+
+        .go-place-name
+            font-weight 900
+            font-size 15px
+
+        .go-place-distance
+            grid-row 1 / span 2
+            grid-column 2
+            align-self center
+            font-weight 900
+            color #c8f05a
+
+        .go-place-blurb
+            font-size 12px
+            opacity 0.65
+
+    .go-clear
+        width 100%
+        margin-top 12px
+        padding 10px
+        font 700 13px 'Nunito', system-ui, sans-serif
+        color #e9e6dc
+        background transparent
+        border 1px solid #34342d
+        cursor pointer

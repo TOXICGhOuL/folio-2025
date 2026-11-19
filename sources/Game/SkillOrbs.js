@@ -28,6 +28,13 @@ export class SkillOrbs
         this.mapElement = document.querySelector('.js-minimap-map')
         this.arrow = document.querySelector('.js-minimap-arrow')
         this.hud = document.querySelector('.js-skill-hud')
+        this.goButton = document.querySelector('.js-go-button')
+        this.panel = document.querySelector('.js-go-panel')
+        this.huntButton = document.querySelector('.js-hunt-toggle')
+        this.huntBest = document.querySelector('.js-hunt-best')
+        this.placesList = document.querySelector('.js-go-places')
+        this.hunting = false
+        this.waypoint = null
         this.size = this.game.terrain.size
 
         this.ready = false
@@ -50,19 +57,19 @@ export class SkillOrbs
     init()
     {
         this.ready = true
-
         this.index = 0
-        try { this.index = Math.min(FACTS.length, parseInt(localStorage.getItem(STORAGE_KEY) || '0') || 0) } catch(error) {}
-
         this.points = this.findPoints()
-        if(!this.points.length)
-        {
-            this.items = []
-            this.hud.style.display = 'none'
-            return
-        }
-        this.setMeshes()
+        this.items = []
+
+        if(this.points.length)
+            this.setMeshes()
+        else
+            this.huntButton.disabled = true
+
         this.setRoute()
+
+        this.setWaypointMarker()
+        this.setPanel()
         this.refreshStates()
     }
 
@@ -207,18 +214,37 @@ export class SkillOrbs
     {
         this.items.forEach((item, i) =>
         {
-            const isCurrent = i === this.index
-            const isNext = i === this.index + 1
+            const isCurrent = this.hunting && i === this.index
+            const isNext = this.hunting && i === this.index + 1
             item.group.visible = isCurrent || isNext
             item.beam.visible = isCurrent
             item.group.scale.setScalar(isCurrent ? 1 : 0.55)
-            item.dot.hidden = i < this.index
+            item.dot.hidden = !this.hunting || i < this.index
             item.dot.classList.toggle('is-current', isCurrent)
             item.dot.classList.toggle('is-next', isNext)
         })
 
-        const remaining = this.items.slice(this.index)
+        const remaining = this.hunting ? this.items.slice(this.index) : []
         this.routeAll.setAttribute('points', remaining.map(item => `${this.toMap(item.x)},${this.toMap(item.z)}`).join(' '))
+    }
+
+    // Hunt: start, stop, finish
+    startHunt()
+    {
+        this.hunting = true
+        this.index = 0
+        this.huntStart = performance.now()
+        this.huntButton.textContent = 'Stop the hunt'
+        this.refreshStates()
+        this.closePanel()
+        this.game.notifications.show('<strong>Skill hunt started</strong><br>Drive through the 8 checkpoints in order. Follow the lime arrow.', '', 6)
+    }
+
+    stopHunt()
+    {
+        this.hunting = false
+        this.huntButton.textContent = 'Start the skill hunt'
+        this.refreshStates()
     }
 
     collect(item)
@@ -226,15 +252,112 @@ export class SkillOrbs
         gsap.fromTo(item.group.scale, { x: 1, y: 1, z: 1 }, { x: 2.2, y: 2.2, z: 2.2, duration: 0.35, ease: 'power2.out', onComplete: () => { item.group.visible = false } })
 
         this.index++
-        try { localStorage.setItem(STORAGE_KEY, String(this.index)) } catch(error) {}
-        this.refreshStates()
-
         const done = this.index >= this.items.length
-        this.game.notifications.show(
-            `<strong>${item.title}</strong><br>${item.text}${done ? '<br><strong>Route complete. Thanks for exploring!</strong>' : ''}`,
-            '',
-            8
-        )
+        let extra = ''
+
+        if(done)
+        {
+            const seconds = Math.round((performance.now() - this.huntStart) / 1000)
+            let best = seconds
+            try
+            {
+                best = Math.min(seconds, parseInt(localStorage.getItem(STORAGE_KEY) || '999999'))
+                localStorage.setItem(STORAGE_KEY, String(best))
+            } catch(error) {}
+            extra = `<br><strong>Hunt complete in ${this.format(seconds)}.</strong> Best: ${this.format(best)}.`
+            this.stopHunt()
+            this.updateBest()
+        }
+        else
+        {
+            this.refreshStates()
+        }
+
+        this.game.notifications.show(`<strong>${item.title}</strong><br>${item.text}${extra}`, '', 8)
+    }
+
+    format(seconds)
+    {
+        return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
+    }
+
+    updateBest()
+    {
+        let best = null
+        try { best = parseInt(localStorage.getItem(STORAGE_KEY) || '') } catch(error) {}
+        this.huntBest.textContent = best ? `Best time ${this.format(best)}` : '8 checkpoints, one CV fact each. Beat the clock.'
+    }
+
+    // Go panel: pick a place, get a lime route to it
+    setPanel()
+    {
+        const PLACES = [
+            { key: 'projects',     name: 'Projects',     blurb: 'Six case files: NashCon, Shark Tank, EDII, Kotak' },
+            { key: 'career',       name: 'Career',       blurb: 'Walk the timeline from 2021 to 2030' },
+            { key: 'achievements', name: 'Achievements', blurb: 'Percentile, ranks and awards' },
+            { key: 'lab',          name: 'Lab',          blurb: 'My other sites and links' },
+            { key: 'social',       name: 'Contact',      blurb: 'LinkedIn, mail, WhatsApp, GitHub' },
+            { key: 'circuit',      name: 'Circuit',      blurb: 'A timed lap, just for fun' },
+            { key: 'bowling',      name: 'Bowling',      blurb: 'Knock the pins down' },
+            { key: 'timeMachine',  name: 'Time machine', blurb: 'Jump to my other websites' },
+        ]
+
+        this.places = PLACES.map(place =>
+        {
+            const respawn = this.game.respawns.getByName(place.key)
+            if(!respawn)
+                return null
+
+            const button = document.createElement('button')
+            button.type = 'button'
+            button.className = 'go-place'
+            button.innerHTML = `<span class="go-place-name">${place.name}</span><span class="go-place-blurb">${place.blurb}</span><span class="go-place-distance"></span>`
+            button.addEventListener('click', () => this.setWaypoint({ name: place.name, x: respawn.position.x, y: respawn.position.y, z: respawn.position.z }))
+            this.placesList.append(button)
+
+            return { ...place, button, distanceElement: button.querySelector('.go-place-distance'), position: respawn.position }
+        }).filter(Boolean)
+
+        this.goButton.addEventListener('click', () => this.panel.hidden ? this.openPanel() : this.closePanel())
+        this.panel.querySelector('.js-go-close').addEventListener('click', () => this.closePanel())
+        this.huntButton.addEventListener('click', () => this.hunting ? this.stopHunt() : this.startHunt())
+        this.panel.querySelector('.js-go-clear').addEventListener('click', () => { this.waypoint = null; this.waypointMarker.visible = false; this.closePanel() })
+        this.updateBest()
+    }
+
+    openPanel()
+    {
+        const px = this.game.player.position.x
+        const pz = this.game.player.position.z
+        for(const place of this.places)
+            place.distanceElement.textContent = `${Math.round(Math.hypot(place.position.x - px, place.position.z - pz))} m`
+
+        // Closest first, like a nav app
+        this.places.sort((a, b) => parseInt(a.distanceElement.textContent) - parseInt(b.distanceElement.textContent)).forEach(place => this.placesList.append(place.button))
+        this.panel.hidden = false
+    }
+
+    closePanel()
+    {
+        this.panel.hidden = true
+    }
+
+    setWaypointMarker()
+    {
+        const material = new THREE.MeshBasicNodeMaterial({ color: 0xe9e6dc, transparent: true, depthWrite: false, side: THREE.DoubleSide })
+        material.opacityNode = float(1).sub(positionLocal.y.add(30).div(60)).mul(0.4)
+        this.waypointMarker = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 60, 10, 1, true), material)
+        this.waypointMarker.frustumCulled = false
+        this.waypointMarker.visible = false
+        this.game.scene.add(this.waypointMarker)
+    }
+
+    setWaypoint(waypoint)
+    {
+        this.waypoint = waypoint
+        this.waypointMarker.position.set(waypoint.x, waypoint.y + 30, waypoint.z)
+        this.waypointMarker.visible = true
+        this.closePanel()
     }
 
     weatherText()
@@ -247,52 +370,64 @@ export class SkillOrbs
 
     update()
     {
-        if(!this.items.length)
-            return
-
         const time = this.game.ticker.elapsed
         const px = this.game.player.position.x
         const pz = this.game.player.position.z
 
-        for(let i = this.index; i < Math.min(this.index + 2, this.items.length); i++)
+        // Animate hunt markers
+        if(this.hunting)
         {
-            const item = this.items[i]
-            item.spin.rotation.y = time * 1.5
-            item.ringA.rotation.x = time * 2
-            item.ringB.rotation.y = time * 1.2
-            item.spin.position.y = 2 + Math.sin(time * 2) * 0.25
-            item.ground.scale.setScalar(1 + (Math.sin(time * 3) * 0.5 + 0.5) * 0.18)
+            for(let i = this.index; i < Math.min(this.index + 2, this.items.length); i++)
+            {
+                const item = this.items[i]
+                item.spin.rotation.y = time * 1.5
+                item.ringA.rotation.x = time * 2
+                item.ringB.rotation.y = time * 1.2
+                item.spin.position.y = 2 + Math.sin(time * 2) * 0.25
+                item.ground.scale.setScalar(1 + (Math.sin(time * 3) * 0.5 + 0.5) * 0.18)
+            }
         }
 
-        if(!this.items.length)
-            return
+        // What are we navigating to? A chosen place wins over the next hunt checkpoint
+        const huntItem = this.hunting ? this.items[this.index] : null
+        const target = this.waypoint || huntItem
+        let text = this.weatherText()
 
-        const current = this.items[this.index]
-        let text
-        if(current)
+        if(target)
         {
-            const distance = Math.hypot(current.x - px, current.z - pz)
-            if(distance < PICKUP_RADIUS)
-                this.collect(current)
+            const distance = Math.hypot(target.x - px, target.z - pz)
 
-            const theta = this.game.view.spherical.theta
-            const angle = Math.atan2(current.x - px, - (current.z - pz)) + theta
+            if(this.waypoint && distance < 8)
+            {
+                this.game.notifications.show(`<strong>You have arrived</strong><br>${this.waypoint.name}`, '', 4)
+                this.waypoint = null
+                this.waypointMarker.visible = false
+            }
+            else if(!this.waypoint && distance < PICKUP_RADIUS)
+            {
+                this.collect(huntItem)
+            }
+
+            const angle = Math.atan2(target.x - px, - (target.z - pz)) + this.game.view.spherical.theta
             this.arrow.style.display = 'block'
             this.arrow.style.transform = `rotate(${angle}rad) translateY(calc(var(--minimap-radius) * -0.8))`
 
             this.routeNow.setAttribute('x1', this.toMap(px))
             this.routeNow.setAttribute('y1', this.toMap(pz))
-            this.routeNow.setAttribute('x2', this.toMap(current.x))
-            this.routeNow.setAttribute('y2', this.toMap(current.z))
+            this.routeNow.setAttribute('x2', this.toMap(target.x))
+            this.routeNow.setAttribute('y2', this.toMap(target.z))
+            this.routeNow.style.display = ''
 
-            text = `CHECKPOINT ${this.index + 1}/${this.items.length} · ${Math.round(distance)} m  ${this.weatherText()}`
+            const meters = Math.round(distance)
+            if(this.waypoint)
+                text = `→ ${this.waypoint.name} · ${meters} m  ${text}`
+            else
+                text = `HUNT ${this.index + 1}/${this.items.length} · ${this.format(Math.round((performance.now() - this.huntStart) / 1000))} · ${meters} m  ${text}`
         }
         else
         {
             this.arrow.style.display = 'none'
-            this.routeNow.setAttribute('x2', this.routeNow.getAttribute('x1'))
-            this.routeNow.setAttribute('y2', this.routeNow.getAttribute('y1'))
-            text = `ROUTE COMPLETE  ${this.weatherText()}`
+            if(this.routeNow) this.routeNow.style.display = 'none'
         }
 
         if(text !== this.lastText)

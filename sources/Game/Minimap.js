@@ -10,6 +10,7 @@ export class Minimap
         this.element = document.querySelector('.js-minimap')
         this.map = this.element.querySelector('.js-minimap-map')
         this.player = this.element.querySelector('.js-minimap-player')
+        this.compass = this.element.querySelector('.js-minimap-compass')
 
         this.mapSize = 600
         this.previousUrl = null
@@ -46,6 +47,7 @@ export class Minimap
 
         // Player stays in the centre, the map turns so the camera's forward direction is always up
         this.map.style.transform = `translate(${half}px, ${half}px) rotate(${theta}rad) translate(${- x * this.mapSize}px, ${- y * this.mapSize}px)`
-        this.player.style.transform = `rotate(${theta - this.game.physicalVehicle.yRotation}rad)`
+        this.player.style.transform = `rotate(${theta + Math.PI / 2 - this.game.physicalVehicle.yRotation}rad)`
+        this.compass.style.transform = `rotate(${theta}rad)`
     }
 }

@@ -12,9 +12,9 @@ export class PhysicsVehicle
         this.events = new Events()
 
         this.steeringAmplitude = 0.5
-        this.engineForceAmplitude = 300
+        this.engineForceAmplitude = 380
         this.boostMultiplier = 2
-        this.topSpeed = 5
+        this.topSpeed = 10
         this.topSpeedBoost = 40
         this.brakeAmplitude = 35
         this.idleBrake = 0.06
@@ -482,7 +482,8 @@ export class PhysicsVehicle
         brake *= this.brakeAmplitude * this.game.ticker.deltaScaled
 
         // Steer
-        const steer = this.game.player.steering * this.steeringAmplitude
+        // Less steering at speed, so the car holds a line instead of spinning out
+        const steer = this.game.player.steering * this.steeringAmplitude / (1 + this.speed * 0.05)
 
         // Update wheels
         this.controller.setWheelSteering(0, steer)
