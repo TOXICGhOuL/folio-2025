@@ -43,7 +43,12 @@ export class Tutorial
         const onKey = (event) =>
         {
             if(event.key === 'Escape')
+            {
+                // Close the card only, without also opening the game menu
+                event.stopImmediatePropagation()
+                event.preventDefault()
                 close()
+            }
         }
 
         this.button.addEventListener('click', close)
