@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manas</title>
+    <title>Manas Bajaj (BMS26127), Introduction to Information Systems</title>
 
     <meta name="description" content="Manas Bajaj, BMS (Hons) at IIM Sirmaur. Course project for Introduction to Information Systems: an interactive 3D portfolio. Drive around to see the work.">
 
@@ -50,28 +50,42 @@
     </script>
 </head>
 <body>
-    <noscript><p style="padding:2rem;font-family:sans-serif">This portfolio needs JavaScript and WebGL. Open the <a href="/Manas_Bajaj_CV.pdf">plain CV version</a> instead.</p></noscript>
+    <noscript><p style="padding:2rem;font-family:sans-serif">This portfolio needs JavaScript and WebGL. Open the <a href="../Manas_Bajaj_CV.pdf">plain CV version</a> instead.</p></noscript>
 
 
-    <!-- Start gate: nothing heavy loads until the visitor picks -->
-    <div class="js-gate gate">
-        <header class="gate-head">
-            <h1 class="gate-name">Manas Bajaj</h1>
-            <p class="gate-course">Course project for Introduction to Information Systems<br>BMS (Hons), IIM Sirmaur</p>
-        </header>
-        <div class="gate-split">
-            <a class="gate-pane gate-read" href="/Manas_Bajaj_CV.pdf" target="_blank" rel="noopener">
-                <span class="gate-word">Read</span>
-                <span class="gate-desc">My CV as a PDF. It opens in a new tab and loads instantly.</span>
-                <span class="gate-meta">PDF, 0.2 MB</span>
-            </a>
-            <button class="js-gate-start gate-pane gate-drive" type="button">
-                <span class="gate-word">Drive</span>
-                <span class="gate-desc">Steer a small car through a 3D world to open my projects, career and achievements.</span>
-                <span class="gate-meta js-gate-size">3D, about 80 MB. Best on a laptop</span>
-            </button>
+    <!-- Start screen: nothing heavy loads until the visitor presses start -->
+    <style>
+        .pg{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(circle at 25% 15%,#2a1633,#0C0C0C 70%);color:#D7E2EA;font-family:Kanit,Inter,system-ui,sans-serif;transition:opacity .5s}
+        html.is-gate-done .pg{opacity:0;pointer-events:none}
+        .pg-card{width:min(560px,100%);text-align:center}
+        .pg h1{font-size:clamp(2.4rem,9vw,4.6rem);line-height:.95;font-weight:900;text-transform:uppercase;background:linear-gradient(180deg,#646973,#BBCCD7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .pg p{margin:18px auto 26px;font-weight:300;line-height:1.5;max-width:44ch}
+        .pg-roll{display:inline-block;margin-top:14px;padding:4px 14px;border-radius:99px;font-weight:800;letter-spacing:.12em;color:#fff;background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%)}
+        .pg-start{cursor:pointer;border:0;border-radius:99px;padding:18px 44px;font:900 1.15rem/1 inherit;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:linear-gradient(123deg,#18011F 7%,#B600A8 37%,#7621B0 72%,#BE4C00 100%);outline:2px solid #fff;outline-offset:-3px}
+        .pg-start:disabled{opacity:.6;cursor:progress}
+        .pg-note{font-size:.85rem;opacity:.75;margin:18px 0 0!important}
+        .pg-links{margin-top:22px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;font-size:.9rem}
+        .pg-links a{color:#D7E2EA}
+        .pg-load{display:none;margin-top:14px;font-size:.9rem}
+        .pg.is-loading .pg-load{display:block}
+        .pg.is-error .pg-err{display:block}
+        .pg-err{display:none;margin-top:14px;color:#ffb4a8}
+    </style>
+    <div class="js-gate pg">
+        <div class="pg-card">
+            <h1>Drive through<br>Manas Bajaj</h1>
+            <span class="pg-roll">BMS26127</span>
+            <p>A 3D world of my CV. Drive to Education, Experience, Achievements and my group project. Best on a laptop. About 50 MB.</p>
+            <button class="js-gate-start pg-start" type="button">Start driving</button>
+            <div class="pg-load">Loading the world, one moment</div>
+            <div class="pg-err">Could not start the 3D world on this device. Use the links below instead.</div>
+            <p class="pg-note">Prefer to read? Everything is on the normal page.</p>
+            <div class="pg-links">
+                <a href="../">Back to portfolio</a>
+                <a href="../Manas_Bajaj_CV.pdf" download>Download CV</a>
+                <a href="https://sbgroup07.netlify.app/">Group project</a>
+            </div>
         </div>
-        <div class="js-gate-progress gate-progress"><div class="js-gate-bar gate-bar"></div></div>
     </div>
 
     <!-- Tutorial -->
@@ -295,7 +309,7 @@
                                 <p class="text">Welcome!</p>
                                 <p class="text">I'm <strong>Manas Bajaj</strong>, a first-year <strong>BMS (Hons)</strong> student at <strong>IIM Sirmaur</strong>. I like the part where the plan meets reality.</p>
                                 <p class="text">Drive around to open my case files: running NashCon '26 when the venue vanished, pitching at Mock Shark Tank, leading a live market simulation, and more.</p>
-                                <p class="text">Prefer a normal page? Open the <a href="/Manas_Bajaj_CV.pdf" target="_blank" rel="noreferrer">plain CV version</a>. And don't break anything!</p>
+                                <p class="text">Prefer a normal page? Open the <a href="../Manas_Bajaj_CV.pdf" target="_blank" rel="noreferrer">plain CV version</a>. And don't break anything!</p>
                             </div>
                         </div>
 

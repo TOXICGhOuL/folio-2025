@@ -1,7 +1,7 @@
 export default [
     {
         title: 'Plain CV',
-        url: '/Manas_Bajaj_CV.pdf',
+        url: '../Manas_Bajaj_CV.pdf',
         image: 'plain-cv.png',
         imageMini: 'plain-cv-mini.png'
     },
